@@ -1,0 +1,51 @@
+const mongoose = require('mongoose');
+const donateSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'    
+    },
+    weight:{
+        type: string,
+        required: true
+    },
+    country:{
+        type:String,
+        required: true
+    },
+    state: { 
+        type: String,
+        required: true
+    },
+    district:{
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    street: { 
+        type: String,
+        required: true
+    },
+    location:{
+    type: String,
+    enum: ['Point'],
+    required: true
+    },
+    donationID:{
+        type: String,
+        required: true,
+        unique: true,
+        default: false,
+    },
+    status:{
+        type: string,
+        required: true,
+        default: false,
+        enum: ['used', 'on the way', 'stocked on blood bank']
+    }
+
+}, {timestamps: true});
+
+module.exports = mongoose.model('DonateBlood',donateSchema );
