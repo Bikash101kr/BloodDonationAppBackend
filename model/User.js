@@ -10,8 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        enum: ['email', 'phone'],
-        default: false
+        
     },
     password: {
         type: String,
