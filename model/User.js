@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    userID:{
-        type: String,
-        required: true,
-        unique: true
-    },
     username:{
         type: String,
         required: true,
@@ -15,11 +10,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        // minlength: 6,
-        // maxlength: 15
+        
     },
     role:{
         type: String,
+        required:false,
         default: 'basic',
         enum:['admin', 'basic']
     },
@@ -50,22 +45,26 @@ const userSchema = new mongoose.Schema({
     },
     dateOfBirth:{
         type: Date,
-        required: true
+        required: false
     },
     gender:{
         type: String,
-        required: true,
+        required: false,
         enum: ['male', 'female', 'others']
+    },
+    userID:{
+        type: String,
+        required: false,
+        unique: true
     },
     bloodGroup:{
         type: String,
-        required: true,
-        default: false,
+        required: false,
         enum:['A+','B+','O+','AB+','A-','B-','AB-','O-']
     },
     lastDonation:{
         type:Date,
-        required:true
+        required:false
     }
 },{timestamps:true});
 

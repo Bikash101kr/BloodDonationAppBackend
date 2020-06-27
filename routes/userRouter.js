@@ -9,7 +9,7 @@ const jwt = require ('jsonwebtoken');
 
 router.post('/register', (req, res, next) => {
 
-    let { username, password, firstName, lastName, role, bloodGroup, phone, address, gender, lastDonation, userID, dateOfBirth} = req.body;
+    let { username, password, firstName, lastName, phone, address} = req.body;
     User.findOne({username})
     .then((user) => {
         if (user) {
@@ -19,7 +19,7 @@ router.post('/register', (req, res, next) => {
         }
         bcrypt.hash(password, 10)
         .then(hashed => {
-            User.create({username, password: hashed, firstName, lastName, role, bloodGroup, address, phone,gender, lastDonation, userID, dateOfBirth})
+            User.create({username, password: hashed, firstName, lastName, address, phone})
             .then((user)=>{
                 res.json(user);
             }).catch(next);

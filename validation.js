@@ -17,6 +17,4 @@ const registerInput = (data) => {
         isValid: Object.keys(errors).length = 0
     }
 }
-module.exports = {
-    registerInput
-}
+module.exports = { registerInput }
