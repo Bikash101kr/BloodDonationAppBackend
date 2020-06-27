@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6,
-        maxlength: 15
+        // minlength: 6,
+        // maxlength: 15
     },
     role:{
         type: String,
@@ -55,7 +55,6 @@ const userSchema = new mongoose.Schema({
     gender:{
         type: String,
         required: true,
-        default: false,
         enum: ['male', 'female', 'others']
     },
     bloodGroup:{

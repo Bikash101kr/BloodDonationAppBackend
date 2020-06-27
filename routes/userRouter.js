@@ -1,6 +1,6 @@
 const express = require ('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = require('../model/User');
 
 const jwt = require ('jsonwebtoken');
@@ -8,15 +8,8 @@ const jwt = require ('jsonwebtoken');
 //const validation = require('../validation');
 
 router.post('/register', (req, res, next) => {
-    const { errors, isvalid} = validation.registerInput(req.body);
-    if(!isvalid){
-        res.status(400).json({
-            status: 'errors',
-            message: errors
-        });
-    }
 
-    let { username, password, firstName, lastName, role} = req.body;
+    let { username, password, firstName, lastName, role, bloodGroup, phone, address, gender, lastDonation, userID, dateOfBirth} = req.body;
     User.findOne({username})
     .then((user) => {
         if (user) {
@@ -24,13 +17,13 @@ router.post('/register', (req, res, next) => {
             err.status = 401;
             return next(err);
         }
-        bcrypt.hash(password,  (err, hashed) => {
-            if(err) next(err);
-            User.create({username, password: hashed, firstName, lastName, role})
-            .then((user) => {
-                res.json({status: 'Registration Sucessful'});
+        bcrypt.hash(password, 10)
+        .then(hashed => {
+            User.create({username, password: hashed, firstName, lastName, role, bloodGroup, address, phone,gender, lastDonation, userID, dateOfBirth})
+            .then((user)=>{
+                res.json(user);
             }).catch(next);
-        })
+        }).catch(next);
         
     }).catch(next);
 
@@ -74,18 +67,5 @@ router.post('/login', (req, res, next) => {
     }).catch(next);
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
