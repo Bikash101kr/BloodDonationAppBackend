@@ -5,11 +5,15 @@ const bloodBankSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    donationID: [{
+        type: String,
+        ref: 'DonateBlood'
+    }],
     bloodGroup:{
         type: String,
         required: true,
         default: false,
-        enum: ['A+','B+','AB+','0+','A-','B-','AB-','O-']
+        enum: ['A+','B+','AB+','O+','A-','B-','AB-','O-']
     },
     BloodStatus:{
         type: String, 

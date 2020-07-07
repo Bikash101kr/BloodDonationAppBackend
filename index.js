@@ -5,7 +5,7 @@ require('dotenv').config();
 const userRouter = require('./routes/userRouter');
 const donateBloodRouter = require('./routes/donatebloodRouter');
 const requestBloodRouter = require ('./routes/requestBloodRouter');
-
+const bloodBankRouter = require ('./routes/bloodBankRouter');
 const app = express();
 mongoose.connect(process.env.DbURI,{
     useUnifiedTopology: true,
@@ -24,6 +24,7 @@ app.get('/',(req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/DonateBlood', donateBloodRouter);
 app.use('/api/RequestBlood', requestBloodRouter);
+app.use('/api/BloodBank', bloodBankRouter );
 
 
 app.use((req, res, next) => {
