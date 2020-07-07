@@ -5,7 +5,7 @@ const donateSchema = new mongoose.Schema({
         ref: 'User'    
     },
     weight:{
-        type: string,
+        type: String,
         required: true
     },
     country:{
@@ -35,14 +35,12 @@ const donateSchema = new mongoose.Schema({
     },
     donationID:{
         type: String,
-        required: true,
-        unique: true,
-        default: false,
+        required: false,
+        unique: true
     },
     status:{
-        type: string,
-        required: true,
-        default: false,
+        type: String,
+        required: false,
         enum: ['used', 'on the way', 'stocked on blood bank']
     }
 
