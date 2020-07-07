@@ -22,7 +22,7 @@ const requestSchema = new mongoose.Schema({
         type: String,
        required: true,
         default: false,
-        enum: ['A+','B+','AB+','0+','A-','B-','AB-','O-']
+        enum: ['A+','B+','AB+','O+','A-','B-','AB-','O-']
     },
     country:{
         type:String,
@@ -64,13 +64,13 @@ const requestSchema = new mongoose.Schema({
         required: true
     },
     requireBefore:{
-        type: date,
+        type: Date,
         default: Date.now,
         required: true
     },
     requestID:{
         type: String,
-        required: true,
+        required: false,
         unique: true,
     }
 },{timestamps:true});

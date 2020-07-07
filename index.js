@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const userRouter = require('./routes/userRouter');
-const donateBloodRouter = require('./routes/DonateBloodRouter');
+const donateBloodRouter = require('./routes/donatebloodRouter');
+const requestBloodRouter = require ('./routes/requestBloodRouter');
 
 const app = express();
 mongoose.connect(process.env.DbURI,{
@@ -22,6 +23,7 @@ app.get('/',(req, res) => {
 });
 app.use('/api/users', userRouter);
 app.use('/api/DonateBlood', donateBloodRouter);
+app.use('/api/RequestBlood', requestBloodRouter);
 
 
 app.use((req, res, next) => {
