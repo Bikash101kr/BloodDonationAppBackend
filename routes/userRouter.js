@@ -5,7 +5,7 @@ const User = require('../model/User');
 
 const jwt = require ('jsonwebtoken');
 
-//const validation = require('../validation');
+const validation = require('../validation');
 
 router.post('/register', (req, res, next) => {
 
@@ -65,6 +65,11 @@ router.post('/login', (req, res, next) => {
 
         }).catch(next);
     }).catch(next);
+    router.get('/logout', (req, res) => {
+        req.logout();
+        req.flash('success_msg', 'You are logged out');
+        res.redirect('/users/login');
+      });
 
 })
 
