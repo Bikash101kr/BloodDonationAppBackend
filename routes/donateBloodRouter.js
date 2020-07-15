@@ -42,5 +42,34 @@ router.route('/:donation_id')
         res.json(reply);
     }).catch(next);
 })
+router.route('/:donation_id/status')
+.get((req, res, next)=>{
+    DonateBlood.findById(req.params.task_id)
+    .then(Donation => {
+        res.json(Donation.status);
+    }).catch(next);
+})
+.post((req, res, next) => {
+    DonateBlood.findById(req.params.donation_id)
+    .then(Donation => {
+        Donation.status.push(req.body);
+        Donation.save()
+        .then(updatedDonateblood => {
+            res.json(updatedDonateblood.status);
+        }).catch(next);
+    }).catch(next);
+})
+.put((req, res,next) => {
+    DonateBlood.findById(req.params.donation_id)
+    .then(Donation => {
+        let status = Donation.status.id(req.params.donation_id);
+        status.text = req.body.text;
+        Donation.save()
+        .then(updatedDonateBlood => {
+            res.json(Donation.status.id(req.params.donation_id));
+        }).catch(next);
+    }).catch(next);
+
+})
 
 module.exports = router;
