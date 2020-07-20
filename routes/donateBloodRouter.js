@@ -44,7 +44,7 @@ router.route('/:donation_id')
 })
 router.route('/:donation_id/status')
 .get((req, res, next)=>{
-    DonateBlood.findById(req.params.task_id)
+    DonateBlood.findById(req.params.donation_id)
     .then(Donation => {
         res.json(Donation.status);
     }).catch(next);
