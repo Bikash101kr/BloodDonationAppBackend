@@ -6,6 +6,8 @@ const userRouter = require('./routes/userRouter');
 const donateBloodRouter = require('./routes/donatebloodRouter');
 const requestBloodRouter = require ('./routes/requestBloodRouter');
 const bloodBankRouter = require ('./routes/bloodBankRouter');
+const auth = require('./auth');
+
 const app = express();
 mongoose.connect(process.env.DbURI,{
     useUnifiedTopology: true,

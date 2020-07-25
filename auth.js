@@ -39,7 +39,6 @@ function verifyAdmin(req, res, next) {
 
 module.exports = {
     verifyUser,
-    verifyManager,
     verifyAdmin
 };
 
