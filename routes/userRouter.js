@@ -8,6 +8,10 @@ const jwt = require ('jsonwebtoken');
 const validation = require('../validation');
 
 router.post('/register', (req, res, next) => {
+    const { errors, isvalid } = validation.registerInput(req.body);
+    if (!isvalid){
+        res.status(400).json(errors);
+    }
 
     let { username, password, firstName, lastName, phone, address} = req.body;
     User.findOne({username})

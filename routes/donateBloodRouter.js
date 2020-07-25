@@ -42,31 +42,31 @@ router.route('/:donation_id')
         res.json(reply);
     }).catch(next);
 })
-router.route('/:donation_id/status')
+router.route('/:donation_id/Status')
 .get((req, res, next)=>{
     DonateBlood.findById(req.params.donation_id)
     .then(Donation => {
-        res.json(Donation.status);
+        res.json(Donation.Status);
     }).catch(next);
 })
 .post((req, res, next) => {
     DonateBlood.findById(req.params.donation_id)
     .then(Donation => {
-        Donation.status.push(req.body);
+        Donation.Status.push(req.body);
         Donation.save()
         .then(updatedDonateblood => {
-            res.json(updatedDonateblood.status);
+            res.json(updatedDonateblood.Status);
         }).catch(next);
     }).catch(next);
 })
 .put((req, res,next) => {
     DonateBlood.findById(req.params.donation_id)
     .then(Donation => {
-        let status = Donation.status.id(req.params.donation_id);
-        status.text = req.body.text;
+        let status = Donation.donation_id(req.params.donation_id);
+        Status.text = req.body.text;
         Donation.save()
         .then(updatedDonateBlood => {
-            res.json(Donation.status.id(req.params.donation_id));
+            res.json(Donation.Status(req.params.donation_id));
         }).catch(next);
     }).catch(next);
 
