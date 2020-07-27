@@ -6,32 +6,32 @@ const donateSchema = new mongoose.Schema({
     },
     weight:{
         type: String,
-        required: true
+        required: false
     },
     country:{
         type:String,
-        required: true
+        required: false
     },
     state: { 
         type: String,
-        required: true
+        required: false
     },
     district:{
         type: String,
-        required: true
+        required: false
     },
     city: {
         type: String,
-        required: true
+        required: false
     },
     street: { 
         type: String,
-        required: true
+        required: false
     },
     location:{
     type: String,
     enum: ['Point'],
-    required: true
+    required: false
     },
     donationID:{
         

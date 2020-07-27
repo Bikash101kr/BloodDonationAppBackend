@@ -20,13 +20,14 @@ mongoose.connect(process.env.DbURI,{
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+//app.use(express.static(path.join(__dirname, 'public')));
 app.get('/',(req, res) => {
     res.send('Welcome, to my app');
 });
 app.use('/api/users', userRouter);
-app.use('/api/DonateBlood', donateBloodRouter);
-app.use('/api/RequestBlood', requestBloodRouter);
-app.use('/api/BloodBank', bloodBankRouter );
+app.use('/api/DonateBlood', auth.verifyUser, donateBloodRouter);
+app.use('/api/RequestBlood', auth.verifyUser, requestBloodRouter);
+app.use('/api/BloodBank', auth.verifyUser, bloodBankRouter );
 
 
 app.use((req, res, next) => {
