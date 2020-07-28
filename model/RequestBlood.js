@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const requestSchema = new mongoose.Schema({
-    user: {
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
@@ -66,11 +66,6 @@ const requestSchema = new mongoose.Schema({
     requireBefore:{
         type: Date,
         required: true
-    },
-    requestID:{
-        type: String,
-        required: false,
-        unique: true,
     }
 },{timestamps:true});
 

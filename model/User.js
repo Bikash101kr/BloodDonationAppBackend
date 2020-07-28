@@ -52,11 +52,6 @@ const userSchema = new mongoose.Schema({
         required: false,
         enum: ['male', 'female', 'others']
     },
-    userID:{
-        type: String,
-        required: false,
-        unique: true
-    },
     bloodGroup:{
         type: String,
         required: false,

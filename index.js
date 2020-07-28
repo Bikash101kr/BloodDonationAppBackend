@@ -11,7 +11,7 @@ const auth = require('./auth');
 const app = express();
 mongoose.connect(process.env.DbURI,{
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useNewUrlParser: true,
     useCreateIndex: true
 })
