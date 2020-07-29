@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BloodBank = require('../model/BloodBank');
+const auth = require("../auth");
 
 
 router.route('/')
@@ -12,7 +13,7 @@ router.route('/')
 })
 .post((req,res,next)=>{
     let {BloodBankName, bloodGroup, BloodStatus } = req.body;
-    BloodBank.create({donationID: req.donation.id,BloodBankName, bloodGroup, BloodStatus })
+    BloodBank.create({BloodBankName, bloodGroup, BloodStatus })
     .then(storeBlood=> {
         res.status(201).json(storeBlood)
     }).catch(next);

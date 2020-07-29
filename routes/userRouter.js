@@ -54,7 +54,8 @@ router.post('/login', (req, res, next) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 address: user.address,
-                phone: user.phone
+                phone: user.phone,
+                role: user.role
 
             }
             jwt.sign(payload, process.env.SECRET, (err,token)=> {
