@@ -14,7 +14,7 @@ router.route('/')
 })
 .post((req, res, next)=> {
         let { weight, country, state, district, city, street, location} = req.body;
-        DonateBlood.create({ userID: req.user.id, weight, country, state, 
+        DonateBlood.create({ user: req.user.id, weight, country, state, 
             district, city, street, location})
     .then( Donation => {
         res.status(201).json(Donation);
@@ -22,7 +22,7 @@ router.route('/')
     }).catch(err => next(err));
 })
 .delete((req, res,next) => {
-    DonateBlood.deleteMany({userID: req.user.id})
+    DonateBlood.deleteMany({user: req.user.id})
     .then(reply=> {
         res.json(reply);
     }).catch(next);
@@ -35,15 +35,6 @@ router.route('/:donation_id')
     }).catch(next);
 })
 .put((req,res,next) => {
-// if (req.user.role == 'basic'){
-//     DonateBlood.findByIdAndUpdate(req.params.donation_id, {$set: req.body}, {new:true})
-//     .then(updatedDonation => {
-//         res.json(updatedDonation)
-//     }).catch(next);
-// }
-    // if(req.user.role == 'basic')
-    // {
-
     DonateBlood.findByIdAndUpdate( req.params.donation_id,
         {$set: {weight: req.body.weight, 
             country: req.body.country, 

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/User');
 
 const jwt = require ('jsonwebtoken');
+const { verifyUser } = require('../auth');
 
 //const validation = require('../validation');
 
@@ -25,7 +26,7 @@ router.post('/register', (req, res, next) => {
         .then(hashed => {
             User.create({username, password: hashed, firstName, lastName, address, phone, role})
             .then((user)=>{
-                res.json('status: Registration Successful'); 
+                res.json(user,'status: Registration Successful'); 
             }).catch(next);
         }).catch(next);
         
@@ -55,7 +56,8 @@ router.post('/login', (req, res, next) => {
                 lastName: user.lastName,
                 address: user.address,
                 phone: user.phone,
-                role: user.role
+                role: user.role,
+                email: user.email
 
             }
             jwt.sign(payload, process.env.SECRET, (err,token)=> {
@@ -77,6 +79,48 @@ router.post('/login', (req, res, next) => {
         res.redirect('/users/login');
       });
 
+      
+
+      // user/:userid/profile get gara
+    //   router.route ('/:user_id')
+    //   .get((req,res,next) => {
+    //       User.find({user: req.params.id})
+    //       .then(profile=> {
+    //           res.json(profile)
+    //       }).catch(next);
+    //   })
+      router.post ('/profile', verifyUser, (req,res,next)=>{
+          let{email, image, dateOfBirth, lastDonation, gender, bloodGroup } = req.body;
+          User.create({userID: req.user.id, email, image, dateOfBirth, lastDonation, gender, bloodGroup})
+          .then(profile => {
+              res.status(201).json(profile);
+          }).catch(err => next(err));
+
+      })
+    // router.route('/User_Profile')
+    // .get ((req, res, next) => {
+    //     User.find({user: req.user.id})
+    //     .then(UserProfiles=>{
+    //         res.json(UserProfiles);
+    //     }).catch(next);
+   // })
+    router.put('/register',(req, res, next)=>{
+        User.findOneAndUpdate(User.id, {$set: {
+            image: req.body.image,
+            email: req.body.email,
+            dateOfBirth: req.body.dateOfBirth,
+            bloodGroup: req.body.bloodGroup,
+            gender: req.body.gender,
+            lastDonation: req.body.lastDonation
+    
+        }},{new: true})
+        .then(updatedProfile => {
+            
+            res.json(updatedProfile);
+        }).catch(next);
+        
+    })
+    
 })
 
 module.exports = router;
