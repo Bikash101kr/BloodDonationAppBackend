@@ -66,11 +66,6 @@ const requestSchema = new mongoose.Schema({
     requireBefore:{
         type: Date,
         required: true
-    },
-    requestID:{
-        type: String,
-        required: false,
-        unique: true,
     }
 },{timestamps:true});
 

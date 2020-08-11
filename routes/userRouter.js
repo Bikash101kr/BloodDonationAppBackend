@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/User');
 
 const jwt = require ('jsonwebtoken');
+const { verifyUser } = require('../auth');
 
 //const validation = require('../validation');
 
@@ -25,7 +26,7 @@ router.post('/register', (req, res, next) => {
         .then(hashed => {
             User.create({username, password: hashed, firstName, lastName, address, phone, role})
             .then((user)=>{
-                res.json('status: Registration Successful'); 
+                res.json(user); 
             }).catch(next);
         }).catch(next);
         
@@ -54,7 +55,9 @@ router.post('/login', (req, res, next) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 address: user.address,
-                phone: user.phone
+                phone: user.phone,
+                role: user.role,
+                email: user.email
 
             }
             jwt.sign(payload, process.env.SECRET, (err,token)=> {
@@ -76,6 +79,9 @@ router.post('/login', (req, res, next) => {
         res.redirect('/users/login');
       });
 
+      
+
+    
 })
 
 module.exports = router;

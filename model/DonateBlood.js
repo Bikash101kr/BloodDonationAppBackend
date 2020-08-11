@@ -33,13 +33,7 @@ const donateSchema = new mongoose.Schema({
     enum: ['Point'],
     required: false
     },
-    donationID:{
-        
-        type: String,
-        required: false,
-        unique: true
-    },
-    Status:{
+    status:{
         type: String,
         required: false,
         enum: ['used', 'on the way', 'stocked on blood bank']

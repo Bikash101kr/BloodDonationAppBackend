@@ -16,6 +16,7 @@ function verifyUser(req, res, next) {
             return next(err);
         }
         req.user = payload;
+        console.log( req.user);
         next();
     })
 }

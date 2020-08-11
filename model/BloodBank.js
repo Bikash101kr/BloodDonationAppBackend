@@ -5,21 +5,18 @@ const bloodBankSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    donationID: [{
-        type: String,
+    donations: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'DonateBlood'
     }],
-    bloodGroup:{
-        type: String,
-        required: true,
-        default: false,
-        enum: ['A+','B+','AB+','O+','A-','B-','AB-','O-']
-    },
-    BloodStatus:{
-        type: String, 
-        required: true,
-        enum: ['available','unavailable']
-    }
+    users:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    requests:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'RequestBlood'
+    }]
 },{timestamps:true});
 
 module.exports = mongoose.model('BloodBank', bloodBankSchema )

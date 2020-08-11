@@ -12,12 +12,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         
     },
-    role:{
-        type: String,
-        default: 'basic',
-        enum:['admin', 'basic'],
-        required:false
-    },
     firstName:{
         type: String,
         required: true
@@ -29,43 +23,14 @@ const userSchema = new mongoose.Schema({
     phone:{
         type: String,
         required: true
+    },
     
-    },
-    email:{
-        type:String,
-        required: false
-    },
-    image:{
-        type: String,
-        required: false
-    },
     address:{
         type: String,
         required: true
     },
-    dateOfBirth:{
-        type: Date,
-        required: false
-    },
-    gender:{
-        type: String,
-        required: false,
-        enum: ['male', 'female', 'others']
-    },
-    userID:{
-        type: String,
-        required: false,
-        unique: true
-    },
-    bloodGroup:{
-        type: String,
-        required: false,
-        enum:['A+','B+','O+','AB+','A-','B-','AB-','O-']
-    },
-    lastDonation:{
-        type:Date,
-        required:false
-    }
+
+
 },{timestamps:true});
 
 module.exports = mongoose.model('User', userSchema)
