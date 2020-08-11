@@ -6,6 +6,7 @@ const userRouter = require('./routes/userRouter');
 const donateBloodRouter = require('./routes/donatebloodRouter');
 const requestBloodRouter = require ('./routes/requestBloodRouter');
 const bloodBankRouter = require ('./routes/bloodBankRouter');
+const profileRouter = require ('./routes/profileRouter');
 const auth = require('./auth');
 
 const app = express();
@@ -28,7 +29,7 @@ app.use('/api/users', userRouter);
 app.use('/api/DonateBlood', auth.verifyUser, donateBloodRouter);
 app.use('/api/RequestBlood', auth.verifyUser, requestBloodRouter);
 app.use('/api/BloodBank', auth.verifyUser, bloodBankRouter );
-
+app.use('/api/Profile', auth.verifyUser, profileRouter)
 
 app.use((req, res, next) => {
     let err = new error ('Not found');
