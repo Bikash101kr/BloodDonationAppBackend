@@ -15,7 +15,7 @@ const registerInput = (data) => { //data is arguement!!
 
     return { 
         errors,
-        isValid: Object.keys(errors).length === 0
+        isvalid: Object.keys(errors).length === 0
     }
 }
 module.exports = {

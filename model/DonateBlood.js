@@ -4,6 +4,10 @@ const donateSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'    
     },
+    profile:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Profile'
+    },
     weight:{
         type: String,
         required: false

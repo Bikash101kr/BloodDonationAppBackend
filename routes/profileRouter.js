@@ -4,10 +4,10 @@ const Profile = require('../model/Profile');
 
 router.route('/')
 .get((req, res, next) =>{
-    Task.find({user: req.user.id})
-    .then((tasks) => {
+    Profile.find({user: req.user.id})
+    .then((profiles) => {
         res.setHeader('Content-Type', 'application/json');
-        res.json(tasks);
+        res.json(profiles);
     }).catch(err => next(err));
 })
 .post((req, res, next) => {

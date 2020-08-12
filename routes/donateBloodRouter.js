@@ -13,8 +13,8 @@ router.route('/')
     }).catch(next);
 })
 .post((req, res, next)=> {
-        let { weight, country, state, district, city, street, location} = req.body;
-        DonateBlood.create({ user: req.user.id, weight, country, state, 
+        let {profile, weight, country, state, district, city, street, location} = req.body;
+        DonateBlood.create({profile, user: req.user.id, weight, country, state, 
             district, city, street, location})
     .then( Donation => {
         res.status(201).json(Donation);
