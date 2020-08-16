@@ -1,6 +1,6 @@
 const validator = require('validator');
 
-const registerInput = (data) => { //data is arguement!!
+const RegisterInput = (data) => { //data is arguement!!
     let errors = {};
     if (data.username) {
         if (!validator.isLength(data.username.trim(), {min:5, max: 30})) { //trim() is used to remove white space from both ends and not from between two words. !!!!
@@ -19,5 +19,5 @@ const registerInput = (data) => { //data is arguement!!
     }
 }
 module.exports = {
-    registerInput
+    RegisterInput
 };
