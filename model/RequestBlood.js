@@ -8,7 +8,7 @@ const requestSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: false,
-        enum: ['fresh','general']
+        enum: ['fresh','stored', 'any of above']
     },
     patientName:{
         type: String,
@@ -52,7 +52,6 @@ const requestSchema = new mongoose.Schema({
     },
     location:{
     type: String,
-    enum: ['Point'],
     required: true
     },
     needUnit:{

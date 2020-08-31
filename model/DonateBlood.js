@@ -34,7 +34,6 @@ const donateSchema = new mongoose.Schema({
     },
     location:{
     type: String,
-    enum: ['Point'],
     required: false
     },
     status:{

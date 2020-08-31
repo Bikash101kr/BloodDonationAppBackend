@@ -5,7 +5,7 @@ const User = require('../model/User');
 
 const jwt = require ('jsonwebtoken');
 const { verifyUser } = require('../auth');
-
+process.env.SECRET_KEY = 'secret'
 const validation = require('../validation');
 
 router.post('/register', (req, res, next) => {
@@ -59,14 +59,14 @@ router.post('/login', (req, res, next) => {
                 lastName: user.lastName,
                 address: user.address,
                 phone: user.phone,
-                role: user.role,
-                email: user.email
+                role: user.role
 
             }
             jwt.sign(payload, process.env.SECRET, (err,token)=> {
                 if(err){
                     return next(err);
                 }
+                
                 res.json({
                     status: 'Login Sucessful',
                     token: `Bearer ${token}`
@@ -85,6 +85,24 @@ router.post('/login', (req, res, next) => {
       
 
     
+})
+
+router.get('/profile', (req, res, next) =>{
+    var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+    User.findone({
+        _id: decoded._id
+
+    })
+    .then(user => {
+        if(user){
+            res.json(user)
+        }else{
+            res.send("User does not exist");
+        }
+    }).catch(err => {
+        res.send('error: ' + err)
+})
+
 })
 
 module.exports = router;
