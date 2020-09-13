@@ -7,6 +7,7 @@ const jwt = require ('jsonwebtoken');
 const { verifyUser } = require('../auth');
 process.env.SECRET_KEY = 'secret'
 const validation = require('../validation');
+const Profile = require('../model/Profile');
 
 router.post('/register', (req, res, next) => {
     let { errors, isvalid } = validation.RegisterInput(req.body);
@@ -51,27 +52,46 @@ router.post('/login', (req, res, next) => {
                 let err = new Error('password does not match');
                 err.status = 401;
                 return next(err);
-            }
-            let payload = {
-                id: user.id,
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                address: user.address,
-                phone: user.phone,
-                role: user.role
+			}
+			Profile.findOne({owner: user.id})
+			.then(profile => {
+				console.log(profile + " this is profile");
+				var payload;
 
-            }
-            jwt.sign(payload, process.env.SECRET, (err,token)=> {
-                if(err){
-                    return next(err);
-                }
-                
-                res.json({
-                    status: 'Login Sucessful',
-                    token: `Bearer ${token}`
-                });
-            });
+				if (profile === null ) {
+					payload = {
+						id: user.id,
+						username: user.username,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						address: user.address,
+						phone: user.phone,
+						role: user.role
+					}
+				} else  {
+					payload = {
+						id: user.id,
+						username: user.username,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						address: user.address,
+						phone: user.phone,
+						role: user.role,
+						pro_id: profile._id
+					}
+				}
+				jwt.sign(payload, process.env.SECRET, (err,token)=> {
+					if(err){
+						return next(err);
+					}
+					
+					res.json({
+						status: 'Login Sucessful',
+						token: `Bearer ${token}`
+					});
+				});
+			})
+           
             
 
         }).catch(next);
@@ -80,11 +100,7 @@ router.post('/login', (req, res, next) => {
         req.logout();
         req.flash('success_msg', 'You are logged out');
         res.redirect('/users/login');
-      });
-
-      
-
-    
+      });    
 })
 
 // router.get('/profile', (req, res, next) =>{

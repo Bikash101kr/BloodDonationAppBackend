@@ -33,8 +33,9 @@ requirementReason, requireBefore })
 });
 router.route('/:request_id')
 .get((req,res,next) => {
-    RequestBlood.findById(req.params.donation_id)
+    RequestBlood.findById(req.params.request_id)
     .then(Request => {
+
         res.json(Request);
     }).catch(next);
 })

@@ -4,7 +4,8 @@ const Profile = require('../model/Profile');
 
 router.route('/')
 .get((req, res, next) =>{
-    Profile.find({user: req.user.id})
+	let profileId = req.user.pro_id;
+    Profile.find({_id: profileId})
     .then((profiles) => {
         res.setHeader('Content-Type', 'application/json');
         res.json(profiles);
@@ -13,7 +14,7 @@ router.route('/')
 .post((req, res, next) => {
     let {email, image, dateOfBirth, gender,bloodGroup, lastDonation} = req.body;
 //   \ req.user is from auth.verifyUser which is from payload. 
-    Profile.create({email, image, dateOfBirth, gender,bloodGroup, lastDonation})
+    Profile.create({owner: req.user.id, email, image, dateOfBirth, gender,bloodGroup, lastDonation})
     .then(profile => {
         res.status(201).json(profile);
     }).catch(err => next(err));
@@ -30,6 +31,7 @@ router.route('/:profile_id')
     Profile.findByIdAndUpdate(req.params.profile_id, {$set: req.body},{new: true})
     .then(profile => {
         res.json(profile);
+        
     }).catch(err => next(err));
 })
 module.exports = router;
