@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
         default: 'basic',
         enum: ['basic', 'admin']
     },
-    requests: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'RequestBlood'
-    }]
 },{timestamps:true});
 
 module.exports = mongoose.model('User', userSchema)

@@ -47,38 +47,12 @@ router.route('/:donation_id')
         res.json(updatedDonation);
 
     }).catch(next);
-   //} 
-        
-    //if (req.user.role == 'admin')
-    //{
-        // DonateBlood.findByIdAndUpdate(req.params.donation_id,
-        //     {$set: { status: req.body.status, donation_id: req.body.donation_id}}, {new: true})
-        //     .then(updatedDonation => {
-        //         res.json(updatedDonation)
-
-        //     }).catch(next);
-    //}
-
 })
 
 .delete((req, res, next) => {
     DonateBlood.deleteOne({_id:req.params.donation_id})
     .then(reply => {
         res.json(reply);
-    }).catch(next);
-})
-router.route('/:donation_id/status')
-.get((req, res, next)=>{
-    DonateBlood.findById(req.params.donation_id)
-    .then(Donation => {
-        res.json(Donation.Status);
-    }).catch(next);
-})
-
-.put(verifyAdmin, (req, res, next)=> {
-    DonateBlood.findByIdAndUpdate(req.params.donation_id, {$set: { status: req.body.status}}, {new: true})
-    .then(DonateBlood => {
-        res.json(DonateBlood);
     }).catch(next);
 })
 

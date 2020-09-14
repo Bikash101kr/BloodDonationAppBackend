@@ -9,14 +9,14 @@ const { request } = require('express');
 
 router.route('/')
 .get((req, res, next)=> {
-    BloodBank.find({user: req.user.id})
+    BloodBank.find()
     .then(availableBlood=>{
         res.json(availableBlood)
     }).catch(next);
 })
 .post(verifyAdmin, (req,res,next)=>{
-    let {BloodBankName, donations, requests } = req.body;
-    BloodBank.create({BloodBankName, donations, requests })
+    let {BloodBankName, availableBloodGroup, donations, requests } = req.body;
+    BloodBank.create({BloodBankName,availableBloodGroup, donations, requests })
     .then(storeBlood=> {
         res.status(201).json(storeBlood)
     }).catch(next);

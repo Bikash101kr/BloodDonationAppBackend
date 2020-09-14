@@ -4,7 +4,7 @@ require('dotenv').config();
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
-
+const adminRouter = require('./routes/adminRouter');
 const userRouter = require('./routes/userRouter');
 const donateBloodRouter = require('./routes/donatebloodRouter');
 const requestBloodRouter = require ('./routes/requestBloodRouter');
@@ -37,15 +37,11 @@ app.use('/api/users', userRouter);
 app.use('/api/DonateBlood', auth.verifyUser, donateBloodRouter);
 app.use('/api/RequestBlood',auth.verifyUser, requestBloodRouter);
 app.use('/api/BloodBank', auth.verifyUser, bloodBankRouter );
-app.use('/api/Profile', auth.verifyUser, profileRouter)
+app.use('/api/Profile', auth.verifyUser, profileRouter);
 app.use('/api/upload', auth.verifyUser, uploadRouter);
-app.use((req, res, next) => {
-    let err = new error ('Not found');
-    err.status = 404;
-    next(err);
+app.use('/api/admin', auth.verifyUser, auth.verifyAdmin, adminRouter);
 
-    
-})
+   
 app.use((err, req, res, next) => {
     console.log(err.stack);
     res.status(err.status || 500);

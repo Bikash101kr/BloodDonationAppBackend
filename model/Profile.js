@@ -29,7 +29,7 @@ const profileSchema = new mongoose.Schema({
         enum:['A+','B+','O+','AB+','A-','B-','AB-','O-']
     },
     lastDonation:{
-        type:Date,
+        type:String,
         required:false
     }
 },{timestamps:true});

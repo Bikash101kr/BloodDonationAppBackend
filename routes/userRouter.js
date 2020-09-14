@@ -103,22 +103,4 @@ router.post('/login', (req, res, next) => {
       });    
 })
 
-// router.get('/profile', (req, res, next) =>{
-//     var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-//     User.findone({
-//         _id: decoded._id
-
-//     })
-//     .then(user => {
-//         if(user){
-//             res.json(user)
-//         }else{
-//             res.send("User does not exist");
-//         }
-//     }).catch(err => {
-//         res.send('error: ' + err)
-// })
-
-// })
-
 module.exports = router;

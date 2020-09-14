@@ -5,6 +5,10 @@ const bloodBankSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    availableBloodGroup:{
+        type: String,
+        required: false
+    },
     donations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DonateBlood'
