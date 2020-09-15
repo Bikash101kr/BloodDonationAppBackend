@@ -1,36 +1,36 @@
 const mongoose = require('mongoose');
+
 const donateSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'    
     },
-    profile:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile'
-    },
     weight:{
         type: String,
-        required: false
+        required: true
     },
     country:{
         type:String,
-        required: false
+        required: true
     },
+
     state: { 
         type: String,
-        required: false
+        required: true
     },
+
     district:{
         type: String,
-        required: false
+        required: true
     },
+
     city: {
         type: String,
-        required: false
+        required: true
     },
     street: { 
         type: String,
-        required: false
+        required: true
     },
     location:{
     type: String,
@@ -39,9 +39,11 @@ const donateSchema = new mongoose.Schema({
     status:{
         type: String,
         required: false,
-        enum: ['used', 'on the way', 'stocked on blood bank']
+        enum: ['used', 'on the way', 
+        'stocked on blood bank']
     }
 
 }, {timestamps: true});
 
-module.exports = mongoose.model('DonateBlood',donateSchema );
+module.exports = mongoose.model('DonateBlood',
+donateSchema );

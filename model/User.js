@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const userSchema = new mongoose.Schema({
     username:{
         type: String,
@@ -22,12 +21,17 @@ const userSchema = new mongoose.Schema({
     },
     phone:{
         type: String,
-        required: true
+        required: false
     },
     
     address:{
         type: String,
         required: true
+
+
+
+
+        
     },
     role:{
         type: String,
@@ -35,6 +39,33 @@ const userSchema = new mongoose.Schema({
         default: 'basic',
         enum: ['basic', 'admin']
     },
+    email:{
+        type:String,
+        required: false
+    },
+    image:{
+        type: String,
+        required: false
+    },
+    
+    dateOfBirth:{
+        type: String,
+        required: false
+    },
+    gender:{
+        type: String,
+        required: false,
+        enum: ['male', 'female', 'others']
+    },
+    bloodGroup:{
+        type: String,
+        required: false,
+        enum:['A+','B+','O+','AB+','A-','B-','AB-','O-']
+    },
+    lastDonation:{
+        type:String,
+        required:false
+    }
 },{timestamps:true});
 
 module.exports = mongoose.model('User', userSchema)

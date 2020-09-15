@@ -44,6 +44,15 @@ router.route('/users')
     }).catch(next);
 })
 router.route('/:user_id')
+.get((req, res, next)=>{
+    User.findById(req.params.user_id)
+    .then(userDetails=>{
+        res.json(userDetails);
+    }).catch(next)
+.put((req, res,next)=>{
+    
+})
+})
 .delete((req, res, next) => {
     User.deleteOne({_id:req.params.user_id})
     .then(reply => {

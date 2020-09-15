@@ -18,7 +18,8 @@ router.post('/register', (req, res, next) => {
         });
     }
 
-    let { username, password, firstName, lastName, phone, address, role} = req.body;
+    let { username, password, firstName, lastName, phone, address, role, email, image,
+         dateOfBirth, gender,bloodGroup, lastDonation} = req.body;
     User.findOne({username})
     .then((user) => {
         if (user) {
@@ -28,7 +29,8 @@ router.post('/register', (req, res, next) => {
         }
         bcrypt.hash(password, 10)
         .then(hashed => {
-            User.create({username, password: hashed, firstName, lastName, address, phone, role})
+            User.create({username, password: hashed, firstName, lastName, address, phone, role,
+                email, image, dateOfBirth, gender,bloodGroup, lastDonation})
             .then(user => {
                 res.status(201).json({ user, "status": "Registration successful" });
             }).catch(next);
@@ -37,6 +39,71 @@ router.post('/register', (req, res, next) => {
     }).catch(next);
 
 })
+// router.post('/login', (req, res, next) => {
+//     let { username, password} = req.body;
+//     User.findOne({username})
+//     .then((user) => {
+//         if (!user) {
+//             let err = new Error('User not found ');
+//             err.status = 401;
+//             return next(err);
+//         }
+//         bcrypt.compare(password, user.password)
+//         .then((isMatched) => {
+//             if(!isMatched){
+//                 let err = new Error('password does not match');
+//                 err.status = 401;
+//                 return next(err);
+// 			}
+// 			Profile.findOne({owner: user.id})
+// 			.then(profile => {
+// 				console.log(profile + " this is profile");
+// 				var payload;
+
+// 				if (profile === null ) {
+// 					payload = {
+// 						id: user.id,
+// 						username: user.username,
+// 						firstName: user.firstName,
+// 						lastName: user.lastName,
+// 						address: user.address,
+// 						phone: user.phone,
+// 						role: user.role
+// 					}
+// 				} else  {
+// 					payload = {
+// 						id: user.id,
+// 						username: user.username,
+// 						firstName: user.firstName,
+// 						lastName: user.lastName,
+// 						address: user.address,
+// 						phone: user.phone,
+// 						role: user.role,
+// 						pro_id: profile._id
+// 					}
+// 				}
+// 				jwt.sign(payload, process.env.SECRET, (err,token)=> {
+// 					if(err){
+// 						return next(err);
+// 					}
+					
+// 					res.json({
+// 						status: 'Login Sucessful',
+// 						token: `Bearer ${token}`
+// 					});
+// 				});
+// 			})
+           
+            
+
+//         }).catch(next);
+//     }).catch(next);
+//     router.get('/logout', (req, res) => {
+//         req.logout();
+//         req.flash('success_msg', 'You are logged out');
+//         res.redirect('/users/login');
+//       });    
+// })
 router.post('/login', (req, res, next) => {
     let { username, password} = req.body;
     User.findOne({username})
@@ -52,46 +119,34 @@ router.post('/login', (req, res, next) => {
                 let err = new Error('password does not match');
                 err.status = 401;
                 return next(err);
-			}
-			Profile.findOne({owner: user.id})
-			.then(profile => {
-				console.log(profile + " this is profile");
-				var payload;
+            }
+            let payload = {
+                id: user.id,
+                username: user.username,
+                firstName:user.firstName,
+                lastName:user.lastName,
+                phone:user.phone,
+                address:user.address,
+                role: user.role,
+                email: user.email,
+                image:user.image,
+                dateOfBirth:user.dateOfBirth,
+                gender:user.gender,
+                bloodGroup:user.bloodGroup,
+                lastDonation:user.lastDonation
 
-				if (profile === null ) {
-					payload = {
-						id: user.id,
-						username: user.username,
-						firstName: user.firstName,
-						lastName: user.lastName,
-						address: user.address,
-						phone: user.phone,
-						role: user.role
-					}
-				} else  {
-					payload = {
-						id: user.id,
-						username: user.username,
-						firstName: user.firstName,
-						lastName: user.lastName,
-						address: user.address,
-						phone: user.phone,
-						role: user.role,
-						pro_id: profile._id
-					}
-				}
-				jwt.sign(payload, process.env.SECRET, (err,token)=> {
-					if(err){
-						return next(err);
-					}
-					
-					res.json({
-						status: 'Login Sucessful',
-						token: `Bearer ${token}`
-					});
-				});
-			})
-           
+
+            }
+            jwt.sign(payload, process.env.SECRET, (err,token)=> {
+                if(err){
+                    return next(err);
+                }
+                res.json({
+                    status: 'Login Sucessful',
+                    token: `Bearer ${token}`,
+                    id: user.id
+                });
+            });
             
 
         }).catch(next);
@@ -100,7 +155,12 @@ router.post('/login', (req, res, next) => {
         req.logout();
         req.flash('success_msg', 'You are logged out');
         res.redirect('/users/login');
-      });    
+      });
+
+      
+
+    
 })
+
 
 module.exports = router;
