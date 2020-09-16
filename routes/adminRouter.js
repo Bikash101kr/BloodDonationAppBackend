@@ -49,9 +49,6 @@ router.route('/:user_id')
     .then(userDetails=>{
         res.json(userDetails);
     }).catch(next)
-.put((req, res,next)=>{
-    
-})
 })
 .delete((req, res, next) => {
     User.deleteOne({_id:req.params.user_id})
@@ -59,5 +56,18 @@ router.route('/:user_id')
         res.json(reply);
     }).catch(next);
 })
+router.route('/:user_id/role')
+.get((req, res, next)=>{
+    User.findById(req.params.user_id)
+    .then(user => {
+        res.json(user.role);
+    }).catch(next);
+})
 
+.put((req, res, next)=> {
+    User.findByIdAndUpdate(req.params.user_id, {$set: { role: req.body.role}}, {new: true})
+    .then(role => {
+        res.json(role);
+    }).catch(next);
+})
 module.exports = router;

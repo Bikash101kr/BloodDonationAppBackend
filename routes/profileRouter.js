@@ -44,29 +44,13 @@ router.route('/:user_id')
     }).catch(err => next(err));
 })
 .put((req,res,next)=>{
-    
-    let { errors, isvalid } = validation.RegisterUpdateInput(req.body);
-    if (!isvalid) {
-        return res.status(400).json({
-            status: 'error',
-            message: errors
-        });
-    }
-    let { username, firstName, lastName, phone, address, role, email, image, dateOfBirth, gender,bloodGroup, lastDonation} = req.body;
-    User.findOne({username})
-    .then((user) => {
-        if (user) {
-            let err = new Error('Username already exists!');
-            err.status = 401;
-            return next(err);
-        }
     User.findByIdAndUpdate(req.params.user_id,
         {$set: req.body},{new: true})
         .then(updateduser=> {
             res.json(updateduser);
         }).catch(next);
-    }).catch(next)
-})
+    })
+
 .delete((req, res, next)=> {
     User.deleteOne({_id:req.params.user_id})
     .then(reply=> {
