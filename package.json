@@ -16,6 +16,8 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
+    "jest-environment-node": "^26.3.0",
     "supertest": "^4.0.2"
   },
   "scripts": {
