@@ -13,8 +13,8 @@ router.route('/')
     }).catch(next);
 })
 .post((req, res, next)=> {
-        let {profile, weight, country, state, district, city, street, location} = req.body;
-        DonateBlood.create({profile, user: req.user.id, weight, country, state, 
+        let { bloodGroup, weight, country, state, district, city, street, location} = req.body;
+        DonateBlood.create({ user: req.user.id, weight, country, state, bloodGroup,
             district, city, street, location})
     .then( Donation => {
         res.status(201).json(Donation);
@@ -42,6 +42,7 @@ router.route('/:donation_id')
             district: req.body.district, 
             city: req.body.city, 
             street: req.body.street, 
+            bloodGroup: req.body.bloodGroup,
             location: req.body.location }},{new: true})
     .then(updatedDonation => {
         res.json(updatedDonation);
