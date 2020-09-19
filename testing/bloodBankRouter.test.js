@@ -13,7 +13,10 @@ app.use('/BloodBank', auth.verifyUser, bloodBankRouter );
 
 require('./setup')
 let token;
+<<<<<<< HEAD
 let bloodBankId
+=======
+>>>>>>> test
 beforeAll(() => {
     return request(app).post('/users/register')
         .send({
@@ -33,13 +36,18 @@ beforeAll(() => {
                     username: 'test134',
                     password: 'bikash134'
                 }).then((res) => {
+<<<<<<< HEAD
                     
+=======
+                    console.log(res.body)
+>>>>>>> test
                     expect(res.statusCode).toBe(200);
                     token = res.body.token;
                 })
         })
 })
 describe('Blood Bank router test', ()=> {
+<<<<<<< HEAD
     test(' admin user should be able to post blood bank ',() => {
         return request (app).post('/BloodBank')
         .set('authorization', token)
@@ -48,11 +56,21 @@ describe('Blood Bank router test', ()=> {
         })
         .then((res)=> {
             bloodBankId = res.body._id
+=======
+    test(' basic user should not able to post blood bank ',() => {
+        return request (app).post('/BloodBank')
+        .set('authorization', token)
+        .send({
+            bloodBankName: 'Nepal Redcross Society'
+        })
+        .then((res)=> {
+>>>>>>> test
             console.log(res.body);
             expect(res.statusCode).toBe(201);
         })
 
     })
+<<<<<<< HEAD
     test('should able to get blood bank',()=>{
         return request(app).get('/BloodBank')
         .set('authorization', token)
@@ -92,5 +110,8 @@ describe('Blood Bank router test', ()=> {
             expect(res.statusCode).toBe(200);
         })
     })
+=======
+    
+>>>>>>> test
 })
 

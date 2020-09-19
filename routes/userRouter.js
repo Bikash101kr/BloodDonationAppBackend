@@ -6,7 +6,10 @@ const jwt = require ('jsonwebtoken');
 
 process.env.SECRET_KEY = 'secret'
 const validation = require('../validation');
+<<<<<<< HEAD
 
+=======
+>>>>>>> test
 
 router.post('/register', (req, res, next) => {
     let { errors, isvalid } = validation.RegisterInput(req.body);
@@ -23,7 +26,7 @@ router.post('/register', (req, res, next) => {
     .then((user) => {
         if (user) {
             let err = new Error('User already exists!');
-            err.status = 401;
+            err.status = 400;
             return next(err);
         }
         bcrypt.hash(password, 10)
@@ -85,6 +88,12 @@ router.post('/login', (req, res, next) => {
 
         }).catch(next);
     }).catch(next);
+<<<<<<< HEAD
+=======
+
+      
+
+>>>>>>> test
     
 })
 

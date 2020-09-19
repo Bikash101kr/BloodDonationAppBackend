@@ -4,7 +4,10 @@ require('dotenv').config();
 const auth = require('../auth');
 const userRouter = require('../routes/userRouter');
 const donateBloodRouter = require('../routes/donateBloodRouter');
+<<<<<<< HEAD
 const { get } = require('mongoose');
+=======
+>>>>>>> test
 
 const app = express();
 app.use(express.json());
@@ -40,6 +43,7 @@ beforeAll(() => {
         })
 })
 describe('Donate Blood router test', ()=> {
+<<<<<<< HEAD
     test(' should not  able to post donation with insufficient information',() => {
         return request (app).post('/DonateBlood')
         .set('authorization', token)
@@ -60,18 +64,31 @@ describe('Donate Blood router test', ()=> {
         .send({
             weight:'60',
             country:'nepal',
+=======
+    test(' should be able to post donation',() => {
+        return request (app).post('/DonateBood')
+        .set('authorization', token)
+        .send({
+            weight:'60',
+            coumtry:'nepal',
+>>>>>>> test
             state:'2',
             district:'dhd',
             city:'cht',
             street:'dbt',
         })
         .then((res)=> {
+<<<<<<< HEAD
             donationId= res.body._id
             
+=======
+            console.log(res.body);
+>>>>>>> test
             expect(res.statusCode).toBe(201);
         })
 
     })
+<<<<<<< HEAD
     test('should be able to get donations', ()=> {
         return request (app).get('/DonateBlood')
         .set('authorization', token)
@@ -121,6 +138,8 @@ describe('Donate Blood router test', ()=> {
             expect(res.statusCode).toBe(200);
         })
     })
+=======
+>>>>>>> test
     
 })
 

@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BloodBank = require('../model/BloodBank');
-const auth = require("../auth");
 const { verifyAdmin } = require('../auth');
-const DonateBlood = require('../model/DonateBlood');
-const { request } = require('express');
 
 
 router.route('/')
@@ -17,8 +14,8 @@ router.route('/')
 .post(verifyAdmin, (req,res,next)=>{
     let {BloodBankName, availableBloodGroup, donations, requests } = req.body;
     BloodBank.create({BloodBankName,availableBloodGroup, donations, requests })
-    .then(storeBlood=> {
-        res.status(201).json(storeBlood)
+    .then(bloodBank=> {
+        res.status(201).json(bloodBank)
     }).catch(next);
     
 })
@@ -26,8 +23,8 @@ router.route('/')
 router.route('/:bloodBank_id')
 .get(verifyAdmin,(req, res, next)=> {
     BloodBank.findById(req.params.bloodBank_id)
-    .then(availableBlood=>{
-        res.json(availableBlood);
+    .then(bloodBank=>{
+        res.status(201).json(bloodBank);
     }).catch(next);
 })
 .put(verifyAdmin, (req, res, next)=> {

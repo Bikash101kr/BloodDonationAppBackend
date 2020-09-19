@@ -33,7 +33,11 @@ describe('Test of User Route', () => {
                 address: 'chitwan'
             })
             .then((res) => {
+<<<<<<< HEAD
                 expect(res.statusCode).toBe(401);
+=======
+                expect(res.statusCode).toBe(400);
+>>>>>>> test
             })
     })
     test('should not register user with short username', () => {
@@ -42,9 +46,15 @@ describe('Test of User Route', () => {
                 username: 'bik',
                 password: 'bikash'
             }).then((res) => {
+<<<<<<< HEAD
                 
                 expect(res.statusCode).toBe(400);
                 
+=======
+                console.log(res.body);
+                expect(res.statusCode).toBe(400);
+                expect(res.body.message.firstName).toBe('First name is required');
+>>>>>>> test
             })
             
     })
@@ -54,7 +64,11 @@ describe('Test of User Route', () => {
                 username: 'bikash1',
                 password: 'bikash1'
             }).then((res) => {
+<<<<<<< HEAD
                
+=======
+                console.log(res.body);
+>>>>>>> test
                 expect(res.statusCode).toBe(200);
                 expect(res.body.token).not.toBe('undefined');
             })
@@ -66,7 +80,11 @@ test('should not login user with without register username', () =>{
         password:'bikash1'
 
     }).then((res) => {
+<<<<<<< HEAD
        
+=======
+        console.log(res.body);
+>>>>>>> test
         expect(res.statusCode).toBe(401);
         expect(res.body.token).not.toBe('undefined');
 
@@ -80,7 +98,11 @@ test('should not login user with without register username', () =>{
         password:'dhakal'
 
     }).then((res) => {
+<<<<<<< HEAD
         
+=======
+        console.log(res.body);
+>>>>>>> test
         expect(res.statusCode).toBe(401);
         expect(res.body.token).not.toBe('undefined');
 
