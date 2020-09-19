@@ -17,7 +17,7 @@ let bloodBankId
 beforeAll(() => {
     return request(app).post('/users/register')
         .send({
-            username: 'test134',
+            username: 'test1434',
             password: 'bikash134',
             firstName: 'Dhakal',
             lastName: 'Bikash',
@@ -30,7 +30,7 @@ beforeAll(() => {
             console.log(res.body)
             return request(app).post('/users/login')
                 .send({
-                    username: 'test134',
+                    username: 'test1434',
                     password: 'bikash134'
                 }).then((res) => {
                     
@@ -48,26 +48,15 @@ describe('Blood Bank router test', ()=> {
             BloodBankName: 'Nepal Redcross Society'
         })
         .then((res)=> {
+            console.log(res.body)
             bloodBankId = res.body._id
         })
-    })
-    test(' basic user should not able to post blood bank ',() => {
-        return request (app).post('/BloodBank')
-        .set('authorization', token)
-        .send({
-            bloodBankName: 'Nepal Redcross Society'
-        })
-        .then((res)=> {
-            console.log(res.body);
-            expect(res.statusCode).toBe(201);
-        })
-
     })
     test('should able to get blood bank',()=>{
         return request(app).get('/BloodBank')
         .set('authorization', token)
         .then((res)=> {
-           
+           console.log(res)
             expect(res.statusCode).toBe(200);
         })
     })
