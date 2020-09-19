@@ -45,13 +45,8 @@ const donateSchema = new mongoose.Schema({
     bloodGroup:{
         type: String,
        required: false,
-<<<<<<< HEAD
         default: '',
         enum: ['', 'A+','B+','AB+','O+','A-','B-','AB-','O-']
-=======
-        default: false,
-        enum: ['A+','B+','AB+','O+','A-','B-','AB-','O-']
->>>>>>> test
     },
 
 }, {timestamps: true});

@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User')
-<<<<<<< HEAD
 
-=======
->>>>>>> test
 router.route('/:user_id')
 .get((req,res,next)=>{
     User.findById(req.params.user_id)

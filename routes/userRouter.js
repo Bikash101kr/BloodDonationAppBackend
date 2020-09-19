@@ -6,10 +6,7 @@ const jwt = require ('jsonwebtoken');
 
 process.env.SECRET_KEY = 'secret'
 const validation = require('../validation');
-<<<<<<< HEAD
 
-=======
->>>>>>> test
 
 router.post('/register', (req, res, next) => {
     let { errors, isvalid } = validation.RegisterInput(req.body);
@@ -88,12 +85,6 @@ router.post('/login', (req, res, next) => {
 
         }).catch(next);
     }).catch(next);
-<<<<<<< HEAD
-=======
-
-      
-
->>>>>>> test
     
 })
 
