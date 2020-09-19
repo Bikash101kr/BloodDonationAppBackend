@@ -21,7 +21,6 @@ const requestSchema = new mongoose.Schema({
     bloodGroup:{
         type: String,
        required: true,
-        default: false,
         enum: ['A+','B+','AB+','O+','A-','B-','AB-','O-']
     },
     country:{
@@ -63,7 +62,7 @@ const requestSchema = new mongoose.Schema({
         required: true
     },
     requireBefore:{
-        type: Date,
+        type: String,
         required: true
     }
 },{timestamps:true});

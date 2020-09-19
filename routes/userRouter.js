@@ -2,12 +2,11 @@ const express = require ('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../model/User');
-
 const jwt = require ('jsonwebtoken');
-const { verifyUser } = require('../auth');
+
 process.env.SECRET_KEY = 'secret'
 const validation = require('../validation');
-const Profile = require('../model/Profile');
+
 
 router.post('/register', (req, res, next) => {
     let { errors, isvalid } = validation.RegisterInput(req.body);
@@ -39,71 +38,6 @@ router.post('/register', (req, res, next) => {
     }).catch(next);
 
 })
-// router.post('/login', (req, res, next) => {
-//     let { username, password} = req.body;
-//     User.findOne({username})
-//     .then((user) => {
-//         if (!user) {
-//             let err = new Error('User not found ');
-//             err.status = 401;
-//             return next(err);
-//         }
-//         bcrypt.compare(password, user.password)
-//         .then((isMatched) => {
-//             if(!isMatched){
-//                 let err = new Error('password does not match');
-//                 err.status = 401;
-//                 return next(err);
-// 			}
-// 			Profile.findOne({owner: user.id})
-// 			.then(profile => {
-// 				console.log(profile + " this is profile");
-// 				var payload;
-
-// 				if (profile === null ) {
-// 					payload = {
-// 						id: user.id,
-// 						username: user.username,
-// 						firstName: user.firstName,
-// 						lastName: user.lastName,
-// 						address: user.address,
-// 						phone: user.phone,
-// 						role: user.role
-// 					}
-// 				} else  {
-// 					payload = {
-// 						id: user.id,
-// 						username: user.username,
-// 						firstName: user.firstName,
-// 						lastName: user.lastName,
-// 						address: user.address,
-// 						phone: user.phone,
-// 						role: user.role,
-// 						pro_id: profile._id
-// 					}
-// 				}
-// 				jwt.sign(payload, process.env.SECRET, (err,token)=> {
-// 					if(err){
-// 						return next(err);
-// 					}
-					
-// 					res.json({
-// 						status: 'Login Sucessful',
-// 						token: `Bearer ${token}`
-// 					});
-// 				});
-// 			})
-           
-            
-
-//         }).catch(next);
-//     }).catch(next);
-//     router.get('/logout', (req, res) => {
-//         req.logout();
-//         req.flash('success_msg', 'You are logged out');
-//         res.redirect('/users/login');
-//       });    
-// })
 router.post('/login', (req, res, next) => {
     let { username, password} = req.body;
     User.findOne({username})
@@ -151,14 +85,6 @@ router.post('/login', (req, res, next) => {
 
         }).catch(next);
     }).catch(next);
-    router.get('/logout', (req, res) => {
-        req.logout();
-        req.flash('success_msg', 'You are logged out');
-        res.redirect('/users/login');
-      });
-
-      
-
     
 })
 
