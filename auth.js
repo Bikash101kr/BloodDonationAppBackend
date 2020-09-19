@@ -8,13 +8,9 @@ function verifyUser(req, res, next) {
         err.status = 401;
         return next(err);
     }
-    let token = authHeader.split(' ')[1];//at 0 Bearer will be stored and at 1 token will be stored. Pda
+    let token = authHeader.split("")[1];//at 0 Bearer will be stored and at 1 token will be stored. Pda
     jwt.verify(token, process.env.SECRET, (err, payload) => {
-        if (err) {
-            let err = new Error('Token cound not be found!');
-            err.status = 401;
-            return next(err);
-        }
+        if (err) return next(err);
         req.user = payload;
         console.log( req.user);
         next();
@@ -28,8 +24,7 @@ function verifyAdmin(req, res, next) {
         err.status = 401;
         return next(err);
     }
-    console.log("Log......."+req.user.role);
-    if (req.user.role !== 'admin') {
+    else if (req.user.role !== 'admin') {
         let err = new Error('Forbidden');
         err.status = 403;
         return next(err);

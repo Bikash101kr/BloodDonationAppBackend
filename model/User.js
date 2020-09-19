@@ -57,7 +57,8 @@ const userSchema = new mongoose.Schema({
     bloodGroup:{
         type: String,
         required: false,
-        enum:['A+','B+','O+','AB+','A-','B-','AB-','O-']
+        default:'',
+        enum:['','A+','B+','O+','AB+','A-','B-','AB-','O-']
     },
     lastDonation:{
         type:String,
