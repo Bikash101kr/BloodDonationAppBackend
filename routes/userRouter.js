@@ -17,7 +17,7 @@ router.post('/register', (req, res, next) => {
         });
     }
 
-    let { username, password, firstName, lastName, phone, address, role, email, image,
+    let { username, password, firstName, lastName, phone, address, role, email, 
          dateOfBirth, gender,bloodGroup, lastDonation} = req.body;
     User.findOne({username})
     .then((user) => {
@@ -29,7 +29,7 @@ router.post('/register', (req, res, next) => {
         bcrypt.hash(password, 10)
         .then(hashed => {
             User.create({username, password: hashed, firstName, lastName, address, phone, role,
-                email, image, dateOfBirth, gender,bloodGroup, lastDonation})
+                email,  dateOfBirth, gender,bloodGroup, lastDonation})
             .then(user => {
                 res.status(201).json({ user, "status": "Registration successful" });
             }).catch(next);
@@ -63,7 +63,6 @@ router.post('/login', (req, res, next) => {
                 address:user.address,
                 role: user.role,
                 email: user.email,
-                image:user.image,
                 dateOfBirth:user.dateOfBirth,
                 gender:user.gender,
                 bloodGroup:user.bloodGroup,
