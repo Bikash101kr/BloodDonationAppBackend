@@ -3,13 +3,15 @@ const express = require('express');
 require('dotenv').config();
 const auth = require('../auth');
 const userRouter = require('../routes/userRouter');
+const adminRouter = require('../routes/adminRouter');
 const requestBloodRouter = require('../routes/requestBloodRouter');
+
 
 const app = express();
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/RequestBlood', auth.verifyUser, requestBloodRouter );
-
+app.use('/admin', auth.verifyUser, auth.verifyAdmin, adminRouter);
 
 require('./setup')
 let token;
@@ -26,7 +28,6 @@ beforeAll(() => {
 
         })
         .then((res) => {
-            console.log(res.body)
             return request(app).post('/users/login')
                 .send({
                     username: 'test13456',
@@ -130,6 +131,15 @@ describe('Request Blood router test', ()=> {
             
             expect(res.statusCode).toBe(200);
         })
+    })
+    test('basic user should not able to get all requests', () => {
+        return request(app).get(`/admin/requests`)
+        .set('authorization', token)
+            .then((res) => {
+               
+                expect(res.statusCode).toBe(403);
+            })
+    
     })
     
 })

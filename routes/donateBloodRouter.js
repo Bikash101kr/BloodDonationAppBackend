@@ -6,7 +6,7 @@ const { update } = require('../model/DonateBlood');
 
 router.route('/')
 .get((req, res, next)=>{
-    DonateBlood.find({user: req.user.id})
+    DonateBlood.find()
     .then(donations=> {
         res.setHeader('Content-Type', 'application/json');
         res.json(donations);
@@ -56,5 +56,13 @@ router.route('/:donation_id')
         res.json(reply);
     }).catch(next);
 })
+
+// router.route('/alldonations')
+// .get((req,res,next)=>{
+//     DonateBlood.find()
+//     .then(alldonations=> {
+//         res.json(alldonations);
+//     }).catch(next);
+// })
 
 module.exports = router;

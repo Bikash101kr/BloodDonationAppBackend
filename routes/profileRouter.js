@@ -6,9 +6,8 @@ router.route('/:user_id')
 .get((req,res,next)=>{
     User.findById(req.params.user_id)
     .then(user=>{
-        res.json(user);
-
-    }).catch(err => next(err));
+        res.status(200).json(user);
+    }).catch(next);
 })
 .put((req,res,next)=>{
     User.findByIdAndUpdate(req.params.user_id,

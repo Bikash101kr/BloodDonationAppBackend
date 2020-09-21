@@ -11,7 +11,6 @@ const requestBloodRouter = require ('./routes/requestBloodRouter');
 const bloodBankRouter = require ('./routes/bloodBankRouter');
 const profileRouter = require ('./routes/profileRouter');
 const auth = require('./auth');
-const uploadRouter = require('./routes/upload');
 
 const app = express();
 app.use(morgan('tiny'));
@@ -38,7 +37,6 @@ app.use('/api/DonateBlood', auth.verifyUser, donateBloodRouter);
 app.use('/api/RequestBlood',auth.verifyUser, requestBloodRouter);
 app.use('/api/BloodBank', auth.verifyUser, bloodBankRouter );
 app.use('/api/Profile', auth.verifyUser, profileRouter);
-app.use('/api/upload', auth.verifyUser, uploadRouter);
 app.use('/api/admin', auth.verifyUser, auth.verifyAdmin, adminRouter);
 
    

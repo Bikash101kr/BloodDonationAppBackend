@@ -27,14 +27,14 @@ beforeAll(() => {
 
         })
         .then((res) => {
-            console.log(res.body)
+            
             return request(app).post('/users/login')
                 .send({
                     username: 'test1434',
                     password: 'bikash134'
                 }).then((res) => {
                     
-                    console.log(res.body)
+                    
                     expect(res.statusCode).toBe(200);
                     token = res.body.token;
                 })
@@ -43,20 +43,30 @@ beforeAll(() => {
 describe('Blood Bank router test', ()=> {
     test(' admin user should be able to post blood bank ',() => {
         return request (app).post('/BloodBank')
+        .send({
+            BloodBankName: 'Nepal Redcross Society'
+        })
+        .then((res)=> { 
+        
+            expect(res.statusCode).toBe(401);
+        })
+    })
+    test(' admin user should be able to post blood bank ',() => {
+        return request (app).post('/BloodBank')
         .set('authorization', token)
         .send({
             BloodBankName: 'Nepal Redcross Society'
         })
-        .then((res)=> {
-            console.log(res.body)
+        .then((res)=> { 
             bloodBankId = res.body._id
+            expect(res.statusCode).toBe(201);
         })
     })
     test('should able to get blood bank',()=>{
         return request(app).get('/BloodBank')
         .set('authorization', token)
         .then((res)=> {
-           console.log(res)
+           
             expect(res.statusCode).toBe(200);
         })
     })
@@ -67,7 +77,7 @@ describe('Blood Bank router test', ()=> {
         .set('authorization', token)
         .then((res)=>{
            
-            expect(res.statusCode).toBe(200);
+            expect(res.statusCode).toBe(201);
         })
     })
 

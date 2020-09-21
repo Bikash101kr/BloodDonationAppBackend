@@ -27,13 +27,12 @@ beforeAll(() => {
 
         })
         .then((res) => {
-            console.log(res.body)
             return request(app).post('/users/login')
                 .send({
                     username: 'test1345',
                     password: 'bikash134'
                 }).then((res) => {
-                    console.log(res.body)
+    
                     expect(res.statusCode).toBe(200);
                     token = res.body.token;
                 })
